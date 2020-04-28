@@ -1,3 +1,4 @@
-let menus = {
-  
-}
+let menus = [
+  {},
+  {}
+]

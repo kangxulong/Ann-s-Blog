@@ -12,7 +12,6 @@
 <script>
   import TreeView from "components/common/TreeView"
   
-
   export default {
     data() {
       return {
