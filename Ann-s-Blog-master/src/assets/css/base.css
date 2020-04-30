@@ -3,10 +3,10 @@
 /* :root -> 获取根元素html */
 
 :root {
-  --color-text: #ffffff;
+  /* --color-text: #ffffff; */
   --color-high-text: #ff5777;
   --color-tint: #ff8198;
-  --color-background: #4c4c4c;
+  /* --color-background: #4c4c4c; */
   --font-size: 14px;
   --line-height: 1.5;
 }

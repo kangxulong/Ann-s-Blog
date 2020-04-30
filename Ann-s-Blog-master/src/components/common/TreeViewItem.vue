@@ -7,7 +7,7 @@
         <router-link :to="menu.url" @click.native="toggle(menu)">{{menu.name}}</router-link>
       </div>
       <div v-if="menu.type === 'button'">
-        <div :class="{selected: menu.isSelected,expend: menu.isExpended}" @click="toggle(menu);changeIcon(icon)" >
+        <div :class="{selected: menu.isSelected,expand: menu.isExpanded}" @click="toggle(menu);changeIcon(icon)" >
           {{menu.name}}
           <span class="icon">{{icon}}</span>
         </div>
@@ -23,7 +23,7 @@
 
 <script>
   export default {
-    props: ['menu'],
+    props: ['menus'],
     data() {
       return {
         icon:'▶'
@@ -49,5 +49,7 @@
 </script>
 
 <style scoped>
-
+  .tree-view-item {
+    color: var(--color-text)
+  }
 </style>

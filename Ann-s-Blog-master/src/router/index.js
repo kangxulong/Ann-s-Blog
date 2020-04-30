@@ -1,23 +1,18 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-const QuickPortfolio = () => import("views/overview/QuickPortfolio")
-const NavBar = () => import("components/common/NavBar.vue")
+const Home = () => import("views/Home.vue")
 
 Vue.use(VueRouter)
 
   const routes = [
     {
       path: "",
-      redirect: "/navbar"
+      redirect: "/home"
     },
     {
-      path:"/navbar",
-      component: NavBar
-    },
-    {
-      path:"/quickportfolio",
-      component: QuickPortfolio
+      path:"/home",
+      component: Home
     }
 ]
 

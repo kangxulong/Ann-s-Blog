@@ -8,9 +8,9 @@
   import TreeViewItem from "./TreeViewItem"
   export default {
     data() {
-      return {
-        menu: this.$store.state.menuModule.menu
-      }
+    return {
+      menus: this.$store.state.menusModule.menus
+      };
     },
     components: {
       TreeViewItem
@@ -19,5 +19,7 @@
 </script>
 
 <style scoped>
-
+  .treeView {
+    color: var(--color-text);
+  }
 </style>
