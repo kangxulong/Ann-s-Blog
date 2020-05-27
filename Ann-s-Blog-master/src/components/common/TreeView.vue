@@ -20,6 +20,7 @@
 
 <style scoped>
   .treeView {
-    color: var(--color-text);
+    background-color: rgba(47,46,44,0.85);
+    width: 100%;
   }
 </style>
