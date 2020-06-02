@@ -22,14 +22,14 @@ let menus = [
   { 
     id: 3,
     level: 1,
-    name: 'Overview',
+    name: 'abc',
     type: 'button',
     isExpanded: false,
     isSelected: false,
     subMenu: [
-      { id: 11, level: 2, name: 'Quick Qortfolio', type: 'link', url: '/overview/quick-qortfolio'},
-      { id: 21, level: 2, name: 'Personal Work', type: 'link', url: '/overview/personal-work'},
-      { id: 31, level: 2, name: 'Celebrity', type: 'link', url: '/overview/celebrity'},
+      { id: 11, level: 2, name: 'a', type: 'link', url: '/abc/a'},
+      { id: 21, level: 2, name: 'b', type: 'link', url: '/abc/b'},
+      { id: 31, level: 2, name: 'c', type: 'link', url: '/abc/c'},
     ]
   },
 ]
@@ -40,8 +40,9 @@ function setExpand(source, url) {
     sourceItem = JSON.stringify(source[i]) //将菜单项转化为字符串
     if( sourceItem.indexOf(url) > -1 ) { //查找当前url对应的子菜单属于哪个父菜单
       if(source[i].type === 'button') {
-        source[i].isSelected = true; // 设置选中高亮
         source[i].isExpanded = true; // 设置为展开
+        source[i].isSelected = true; // 设置选中高亮
+        
         startExpand.push(source[i]);
 
         // 递归下一级菜单
@@ -59,6 +60,7 @@ const state = {
 const mutations = {
   findParents(state, payload) {
     if(payload.menu.type === 'button') { //如果传入的type为button，则点击在“展开”与“关闭”间切换
+      // payload.menu.isSelected = true;
       payload.menu.isExpanded = !payload.menu.isExpanded;
     }else if(payload.menu.type === 'link') {
       if (startExpand.length > 0) { // ???

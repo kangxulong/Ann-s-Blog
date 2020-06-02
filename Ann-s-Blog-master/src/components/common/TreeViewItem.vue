@@ -6,12 +6,12 @@
         <router-link :to="menu.url" @click.native="toggle(menu)" class="link">{{menu.name}}</router-link>
       </div>
       <div v-if="menu.type === 'button'">
-        <div :class="{selected: menu.isSelected, expand: menu.isExpanded}" @click="toggle(menu)" class="button">
+        <div :class="{selected: menu.isSelected, expand: menu.isExpanded}" class="button"  @click="toggle(menu)">
           {{menu.name}}
           <span class="icon">{{icon}}</span>
         </div>
         <transition name="fade">
-          <div v-show="menu.isExpanded" class="subMenu">
+          <div v-if="menu.isExpanded" class="subMenu">
             <tree-view-item :menus="menu.subMenu"></tree-view-item>
           </div>
         </transition>
@@ -32,11 +32,16 @@
     methods: {
       toggle(menu) {
         this.$store.commit('findParents', { menu });
+        if(this.icon = '▶') {
+         return this.icon = '▼';
+        }else if(this.icon = '▼') {
+          return this.icon = '▶';
+        }
       }
     },
     created() {
       // 创建组件时，初始化组件
-      this.$store.commit('firstInit', { url:this.$route.path })
+      this.$store.commit('firstInit', { url:"/index" })
     }
   }
 </script>
@@ -62,7 +67,7 @@
     display: block;
   }
 
-  .selected {
+  .selected{
     background-color:#ccc;
     color: #77571d;
     border-radius: 5px;

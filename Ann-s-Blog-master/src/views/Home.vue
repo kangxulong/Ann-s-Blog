@@ -210,6 +210,6 @@
     transform: translateY(-50px);
   }
   .slick-fade-enter-active, .slick-fade-leave-active {
-    transition: all .8s ease;
+    transition: all .5s ease;
   }
 </style>
