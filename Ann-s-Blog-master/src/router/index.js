@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 const Index = () => import("views/childComps/Index.vue")
+const QuickQortfolio = () => import("views/childComps/QuickQortfolio.vue")
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,10 @@ Vue.use(VueRouter)
     {
       path:"/index",
       component: Index
+    },
+    {
+      path:"/overview/quick-qortfolio",
+      component:QuickQortfolio
     }
 ]
 

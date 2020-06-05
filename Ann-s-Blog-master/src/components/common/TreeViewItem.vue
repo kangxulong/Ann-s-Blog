@@ -8,7 +8,12 @@
       <div v-if="menu.type === 'button'">
         <div :class="{selected: menu.isSelected, expand: menu.isExpanded}" class="button"  @click="toggle(menu)">
           {{menu.name}}
-          <span class="icon">{{icon}}</span>
+          <span class="icon" v-if="menu.isExpanded">
+            <img src="~assets/img/icon/arrow-down.svg" alt="打开">
+          </span>
+          <span class="icon" v-else>
+            <img src="~assets/img/icon/arrow-right.svg" alt="折叠">
+          </span>
         </div>
         <transition name="fade">
           <div v-if="menu.isExpanded" class="subMenu">
@@ -26,17 +31,11 @@
     props: ['menus'],
     data() {
       return {
-        icon:'▶'
       }
     },
     methods: {
       toggle(menu) {
         this.$store.commit('findParents', { menu });
-        if(this.icon = '▶') {
-         return this.icon = '▼';
-        }else if(this.icon = '▼') {
-          return this.icon = '▶';
-        }
       }
     },
     created() {
@@ -61,6 +60,17 @@
     line-height: 20px;
     padding: 5px 10px;
     margin: 2px 8px;
+  }
+  .icon{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    line-height: 20px;
+  }
+
+  .icon img {
+    width: 100%;
+    height: 100%;
   }
 
   .expand {
