@@ -13,13 +13,6 @@ let menus = [
     ]
   },
   { 
-    id: 2,
-    level: 1,
-    name: 'motion',
-    type: 'link',
-    url: '/motion'
-  },
-  { 
     id: 3,
     level: 1,
     name: 'abc',
@@ -31,6 +24,13 @@ let menus = [
       { id: 21, level: 2, name: 'b', type: 'link', url: '/abc/b'},
       { id: 31, level: 2, name: 'c', type: 'link', url: '/abc/c'},
     ]
+  },
+  { 
+    id: 2,
+    level: 1,
+    name: 'motion',
+    type: 'link',
+    url: '/motion'
   },
 ]
 let startExpand = []; //保存刷新后当前要展开的菜单项
@@ -60,7 +60,11 @@ const state = {
 const mutations = {
   findParents(state, payload) {
     if(payload.menu.type === 'button') { //如果传入的type为button，则点击在“展开”与“关闭”间切换
-      // payload.menu.isSelected = true;
+      // this.menus.forEach(i => {
+      //   if (i.isExpanded !== payload.menu.isExpanded) {
+      //     i.isExpanded = false;
+      //   }
+      // });
       payload.menu.isExpanded = !payload.menu.isExpanded;
     }else if(payload.menu.type === 'link') {
       if (startExpand.length > 0) { // ???

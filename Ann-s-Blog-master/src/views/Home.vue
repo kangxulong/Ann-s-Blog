@@ -11,9 +11,9 @@
           <span class="nav-icon-bar"></span>
         </div>
       </div>
-      <transition name="slick-fade">
+      <collapse-transition>
         <tree-view v-show="isShow" class="tree-view"></tree-view>
-      </transition>
+      </collapse-transition>
     </div>
     <scroll class="content"
             :probe-type = "3">
@@ -27,6 +27,8 @@
 <script>
   import TreeView from "components/common/TreeView"
   import Scroll from "components/common/scroll/Scroll"
+
+  import collapseTransition from "common/collapseTransition"
   
   export default {
     data() {
@@ -36,7 +38,8 @@
     },
     components: {
       TreeView,
-      Scroll
+      Scroll,
+      collapseTransition
     },
     methods: {
       showTreeView() {
@@ -105,11 +108,11 @@
     overflow: hidden;
   }
 
-  .slick-fade-enter, .slick-fade-leave-to {
+  /* .slick-fade-enter, .slick-fade-leave-to {
     opacity: 0;
     transform: translateY(-50px);
   }
   .slick-fade-enter-active, .slick-fade-leave-active {
     transition: all .5s ease;
-  }
+  } */
 </style>

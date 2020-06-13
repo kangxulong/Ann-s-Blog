@@ -1,7 +1,8 @@
 <template>
   <div class="tree-view-item">
     <div v-for="menu in menus" :key="menu.id" class="item">
-      <div v-if="menu.type === 'link'">
+      <div v-if="menu.type === 'link'"
+           @click="activeChange()">
         <!-- 判定为link时，可以直接跳转到相应路径 -->
         <router-link :to="menu.url" @click.native="toggle(menu)" class="link">{{menu.name}}</router-link>
       </div>
@@ -15,27 +16,37 @@
             <img src="~assets/img/icon/arrow-right.svg" alt="折叠">
           </span>
         </div>
-        <transition name="fade">
-          <div v-if="menu.isExpanded" class="subMenu">
+        <collapse-transition>
+          <div v-show = "menu.isExpanded" class="subMenu">
             <tree-view-item :menus="menu.subMenu"></tree-view-item>
           </div>
-        </transition>
+        </collapse-transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
+  import collapseTransition from "common/collapseTransition.js"
+
   export default {
     name:'TreeViewItem',
     props: ['menus'],
     data() {
       return {
+        // isActive:false
       }
+    },
+    components:{
+      collapseTransition
     },
     methods: {
       toggle(menu) {
         this.$store.commit('findParents', { menu });
+      },
+      activeChange() {
+        this.isActive = !this.isActive
       }
     },
     created() {
@@ -77,7 +88,7 @@
     display: block;
   }
 
-  .selected{
+  .select{
     background-color:#ccc;
     color: #77571d;
     border-radius: 5px;
@@ -85,18 +96,5 @@
 
   .subMenu {
     padding: 0 0 0 20px;
-  }
-
-  .fade-enter-active {
-    transition: all 0.5s ease 0s;
-  }
-  .fade-enter {
-    opacity: 0;
-  }
-  .fade-enter-to {
-    opacity: 1;
-  }
-  .fade-leave-to {
-    height: 0;
   }
 </style>
