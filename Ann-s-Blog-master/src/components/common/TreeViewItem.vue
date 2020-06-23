@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-view-item">
+  <div class="tree-view-item" accordion>
     <div v-for="menu in menus" :key="menu.id" class="item">
       <div v-if="menu.type === 'link'"
            @click="activeChange()">

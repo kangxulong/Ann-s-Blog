@@ -3,8 +3,10 @@
     <div class="slick-nav-menu">
       <div class="nav-menu">
         <div class="logo">
-          <a href="/"></a>
-          </div>
+          <h1 class="logo_tit">
+            <a href="/" class="logo_tit_lk">安菲菲</a>
+          </h1>
+        </div>
         <div class="side-menu" @click="showTreeView">
           <span class="nav-icon-bar"></span>
           <span class="nav-icon-bar"></span>
@@ -43,8 +45,23 @@
     },
     methods: {
       showTreeView() {
-        this.isShow = !this.isShow
+        this.isShow = !this.isShow;
+        console.log('show');
+      },
+      hidePanel:function(event) {
+        const sp = document.getElementsByClassName('tree-view');
+        console.log("hidePanel");
+        
+        if(sp) {
+          if(!sp.contains(event.target)) {
+            this.isShow = false
+          }
+        }
       }
+    },
+    mounted() { document.addEventListener('click', (e) => { if (!this.$el.contains(e.target)) this.isShow = false }) 
+      console.log('123');
+      
     }
   }
 </script>
@@ -68,17 +85,23 @@
     justify-content: space-between;
     padding: 5px;
   }
-  
-  .logo {
-    width: 110px;
+
+  .logo h1 {
+    margin: 0;
+  }
+
+  .logo_tit {
+    width: 75px;
     height: 40px;
   }
 
-  .logo a {
+  .logo .logo_tit_lk {
     background: url("../assets/img/logo.png") no-repeat center center;
     width: 100%;
     height: 100%;
     display: block;
+    font-size: 0;
+    overflow: hidden;
   }
   .side-menu {
     width: 1.125em;
