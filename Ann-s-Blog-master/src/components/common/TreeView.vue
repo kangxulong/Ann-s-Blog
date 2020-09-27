@@ -14,7 +14,7 @@
     },
     components: {
       TreeViewItem
-    },
+    }
   }
 </script>
 
