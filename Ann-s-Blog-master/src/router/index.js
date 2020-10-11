@@ -39,11 +39,4 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-// 跳转路由后关闭菜单显示
-router.afterEach((to, from) => {
-  if(to !== from) {
-    console.log('123123');
-  }
-})
-
 export default router

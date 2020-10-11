@@ -1,8 +1,7 @@
 <template>
   <div class="tree-view-item" accordion>
-    <div v-for="menu in menus" :key="menu.id" class="item">
-      <div v-if="menu.type === 'link'"
-           @click="activeChange()">
+    <div v-if="screenWidth <= 769" v-for="menu in menus" :key="menu.id" class="item">
+      <div v-if="menu.type === 'link'">
         <!-- 判定为link时，可以直接跳转到相应路径 -->
         <router-link :to="menu.url" @click.native="toggle(menu)" class="link">{{menu.name}}</router-link>
       </div>
@@ -23,6 +22,11 @@
         </collapse-transition>
       </div>
     </div>
+    <div v-if="screenWidth > 769">
+      <span>我是PC端</span> 
+      <span>我是PC端</span>
+      <span>我是PC端</span>
+    </div>
   </div>
 </template>
 
@@ -35,7 +39,7 @@
     props: ['menus'],
     data() {
       return {
-        // isActive:false
+        screenWidth:document.body.clientWidth
       }
     },
     components:{
@@ -44,17 +48,30 @@
     methods: {
       toggle(menu) {
         this.$store.commit('findParents', { menu });
-      },
-      activeChange() {
-        this.isActive = !this.isActive
       }
     },
     created() {
       // 创建组件时，初始化组件
       this.$store.commit('firstInit', { url:"/index" });
     },
-    beforeRouteUpdate(to, from, next) {
-      console.log('3123213131')
+    // watch:{
+    //   $route:{
+    //     handler(val, olaVal){
+    //       if(!val == oldVal){
+            
+    //       }
+    //     },
+    //     deep:true
+    //   }
+    // }
+    mounted() {
+      const _this = this;
+      window.onresize = () => {
+        return ( () => {
+          window.screenWidth = document.body.clientWidth;
+          _this.screenWidth = window.screenWidth;
+        } )()
+      }
     }
   }
 </script>

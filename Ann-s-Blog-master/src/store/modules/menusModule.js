@@ -54,18 +54,12 @@ function setExpand(source, url) {
 }
 
 const state = {
-  menus,
-  menuShow: false
+  menus
 };
 
 const mutations = {
   findParents(state, payload) {
     if(payload.menu.type === 'button') { //如果传入的type为button，则点击在“展开”与“关闭”间切换
-      this.menus.forEach(i => {
-        if (i.isExpanded !== payload.menu.isExpanded) {
-          i.isExpanded = false;
-        }
-      });
       payload.menu.isExpanded = !payload.menu.isExpanded;
     }else if(payload.menu.type === 'link') {
       if (startExpand.length > 0) { // ???
@@ -80,24 +74,6 @@ const mutations = {
   firstInit(state, payload) { //初始化组件
     setExpand(state.menus, payload.url)
   },
-
-  menuChangeState(state){
-    let show = function () {
-      state.menuShow = true;
-      // document.addEventListener('click',this.hidePanel,false)
-    }
-
-    let hidden = function () {
-      state.menuShow = false;
-      // document.removeEventListener('click',hidePanel(),false)
-    }
-    // let hidePanel = function(e) {
-    //   if(!this.$refs.navMenu.contains(e.target)) {
-    //     this.hidden()
-    //   }
-    // }
-    return state.menuShow ? hidden() : show();
-  }
 }
 
 export default {

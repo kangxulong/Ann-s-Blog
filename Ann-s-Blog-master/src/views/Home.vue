@@ -1,21 +1,31 @@
 <template>
   <div class="home">
-    <div class="slick-nav-menu" ref="navMenu">
+    <div class="slick-nav-menu" ref="navMenu" v-if="screenWidth <= 769">
       <div class="nav-menu">
         <div class="logo">
           <h1 class="logo_tit">
             <a href="/" class="logo_tit_lk">安菲菲</a>
           </h1>
         </div>
-        <div class="side-menu" @click="menuChangeState">
+        <div class="side-menu" @click="togglePanel">
           <span class="nav-icon-bar"></span>
           <span class="nav-icon-bar"></span>
           <span class="nav-icon-bar"></span>
         </div>
       </div>
       <collapse-transition>
-        <tree-view v-show="this.$store.state.menuShow" class="tree-view" :isShow = "isShow"></tree-view>
+        <tree-view v-show= "isShow" class="tree-view" ></tree-view>
       </collapse-transition>
+    </div>
+    <div class="slick-navMenu" v-if="screenWidth >769">
+      <div class="logo">
+        <h1 class="logo_tit">
+          <a href="/" class="logo_tit_lk">安菲菲</a>
+        </h1>
+      </div>
+      <div class="desktop-menu-view">
+        <tree-view ></tree-view>
+      </div>
     </div>
     <scroll class="content"
             :probe-type = "3">
@@ -35,17 +45,52 @@
   export default {
     data() {
       return {
-        isShow: this.$store.state.menuShow
+        isShow: false,
+        screenWidth:document.body.clientWidth
       }
     },
     components: {
       TreeView,
       Scroll,
       collapseTransition
-    },
+    },  
     methods: {
-      menuChangeState() {
-        this.$store.commit('menuChangeState')
+      togglePanel(){
+        this.isShow ? this.hidden() : this.show()
+      },
+      show() {
+        this.isShow = true;
+        document.addEventListener('click',this.hidePanel,false)
+      },
+      hidden() {
+        this.isShow = false;
+        document.removeEventListener('click',this.hidePanel,false)
+      },
+      hidePanel(e) {
+        if(!this.$refs.navMenu.contains(e.target)) {
+          console.log('121212');
+          this.hidden()
+        }
+      }
+    },
+    mounted() {
+      const _this = this;
+      window.resize = () => {
+        return (() => {
+          window.screenWidth = document.body.clientWidth;
+          _this.screenWidth = window.screenWidth;
+        })()
+      }
+    },
+    // watch观察路由情况，控制跳转后菜单隐藏（未成功）
+    watch:{
+      $route:{
+        handler(val, oldVal){
+          if(!val == oldVal) {
+            console.log("121212");
+            this.hidden()
+          }
+        }
       }
     }
   }
@@ -54,7 +99,6 @@
 <style scoped>
   .home{
     height: 100vh;
-    position: relative;
   }
   .slick-nav-menu {
     border-bottom: 1px solid #927f61;
@@ -65,7 +109,7 @@
     z-index: 1;
   }
   .nav-menu {
-    position: relative;
+    /* position: relative; */
     display: flex;
     justify-content: space-between;
     padding: 5px;
@@ -101,26 +145,29 @@
     margin-bottom: 5px;
   }
 
-  .tree-view {
-    position: absolute;
-    top: 49px;
-    left: 0;
-  }
   .content {
-    /* background-color: rgb(240, 47, 47); */
     width: 100vw;
-
     position: absolute;
     top: 50px;
     bottom: 0;
     overflow: hidden;
   }
-
-  /* .slick-fade-enter, .slick-fade-leave-to {
-    opacity: 0;
-    transform: translateY(-50px);
+  .desktop-navMenu {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
   }
-  .slick-fade-enter-active, .slick-fade-leave-active {
-    transition: all .5s ease;
-  } */
+  .desktop-menu-view{
+    background-color: brown; 
+  }
+  @media screen and (max-width: 769px){
+    .logo {
+      background-color: aqua;
+    }
+    .tree-view {
+      position: absolute;
+      top: 49px;
+      left: 0;
+    }
+  }
 </style>
